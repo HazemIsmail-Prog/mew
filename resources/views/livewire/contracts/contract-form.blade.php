@@ -19,18 +19,16 @@
                         </div>
 
                         <div>
-                            <x-input-label for="username" value="{{ __('messages.username') }}" />
-                            <x-text-input wire:model="form.username" id="username" type="text"
-                                autocomplete="new-username" />
-                            <x-input-error :messages="$errors->get('form.username')" />
+                            <x-input-label for="parent" value="{{ __('messages.parent') }}" />
+                            <x-select wire:model="form.contract_id" id="parent">
+                                <option value="">---</option>
+                                @foreach ($this->contracts as $contract)
+                                    <option value="{{ $contract->id }}">{{ $contract->name }}</option>
+                                @endforeach
+                            </x-select>
+                            <x-input-error :messages="$errors->get('form.contract_id')" />
                         </div>
 
-                        <div>
-                            <x-input-label for="password" value="{{ __('messages.password') }}" />
-                            <x-text-input wire:model="form.password" id="password" type="password"
-                                autocomplete="new-password" />
-                            <x-input-error :messages="$errors->get('form.password')" />
-                        </div>
                         <div>
                             <label class="inline-flex items-center cursor-pointer">
                                 <input wire:model="form.is_active" type="checkbox" class="sr-only peer">

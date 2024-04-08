@@ -1,27 +1,27 @@
 <?php
 
-namespace App\Livewire\Users;
+namespace App\Livewire\Contracts;
 
-use App\Models\User;
+use App\Models\Contract;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class UserIndex extends Component
+class ContractIndex extends Component
 {
     use WithPagination;
 
     #[Computed()]
-    #[On('usersUpdated')]
-    public function users()
+    #[On('contractsUpdated')]
+    public function contracts()
     {
-        return User::query()
+        return Contract::query()
             ->paginate(10);
     }
-    
+
     public function render()
     {
-        return view('livewire.users.user-index');
+        return view('livewire.contracts.contract-index');
     }
 }

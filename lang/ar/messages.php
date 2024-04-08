@@ -23,5 +23,13 @@ return [
     'edit' => 'تعديل',
     'active' => 'مفعل',
     'add' => 'اضافة',
+    'contracts' => 'العقود والمناقصات',
+    'parent' => 'الرئيسي',
+    'add_contract' => 'اضافة عقد',
+    'edit_contract' => 'تعديل عقد',
+    'inactive' => 'غير مفعل',
+    'stakeholders' => 'الادارات والجهات',
+    'edit_stakeholder' => 'تعديل (ادارة / جهة)',
+    'add_stakeholder' => 'اضافة (ادارة / جهة)',
 
 ];

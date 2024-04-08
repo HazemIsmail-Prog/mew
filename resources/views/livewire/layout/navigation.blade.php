@@ -29,12 +29,18 @@ new class extends Component
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <div class="hidden sm:-my-px sm:ms-10 sm:flex sm:gap-4">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('messages.dashboard') }}
                     </x-nav-link>
                     <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')" wire:navigate>
                         {{ __('messages.users') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('contracts.index')" :active="request()->routeIs('contracts.index')" wire:navigate>
+                        {{ __('messages.contracts') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('stakeholders.index')" :active="request()->routeIs('stakeholders.index')" wire:navigate>
+                        {{ __('messages.stakeholders') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -89,6 +95,12 @@ new class extends Component
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')" wire:navigate>
                 {{ __('messages.users') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('contracts.index')" :active="request()->routeIs('contracts.index')" wire:navigate>
+                {{ __('messages.contracts') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('stakeholders.index')" :active="request()->routeIs('stakeholders.index')" wire:navigate>
+                {{ __('messages.stakeholders') }}
             </x-responsive-nav-link>
         </div>
 
