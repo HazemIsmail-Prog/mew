@@ -19,10 +19,10 @@ class DocumentIndex extends Component
     public $filters = [
         'search' => '',
         'type' => '',
-        'created_by' => '',
-        'contract_id' => '',
-        'from_id' => '',
-        'to_id' => '',
+        'created_by' => [],
+        'contract_id' => [],
+        'from_id' => [],
+        'to_id' => [],
         'status' => '',
     ];
 
@@ -72,24 +72,30 @@ class DocumentIndex extends Component
                     "%" . $this->filters['search'] . "%"
                 );
             })
-            ->when($this->filters['type'],function(Builder $q){
-                $q->where('type',$this->filters['type']);
+            ->when($this->filters['type'], function (Builder $q) {
+                $q->where('type', $this->filters['type']);
             })
-            ->when($this->filters['created_by'],function(Builder $q){
-                $q->where('created_by',$this->filters['created_by']);
+            ->when($this->filters['created_by'], function (Builder $q) {
+                $q->whereIn('created_by', $this->filters['created_by']);
             })
-            ->when($this->filters['contract_id'],function(Builder $q){
-                $q->whereRelation('contract','id',$this->filters['contract_id']);
-                $q->orWhereRelation('contract.parent','id',$this->filters['contract_id']);
+            // ->when($this->filters['contract_id'],function(Builder $q){
+            //     $q->whereRelation('contract','id',$this->filters['contract_id']);
+            //     $q->orWhereRelation('contract.parent','id',$this->filters['contract_id']);
+            // })
+            ->when($this->filters['contract_id'], function (Builder $q) {
+                $q->whereIn('contract_id', $this->filters['contract_id']);
+                $q->orWhereHas('contract.parent', function ($query) {
+                    $query->whereIn('id', $this->filters['contract_id']);
+                });
             })
-            ->when($this->filters['from_id'],function(Builder $q){
-                $q->where('from_id',$this->filters['from_id']);
+            ->when($this->filters['from_id'], function (Builder $q) {
+                $q->whereIn('from_id', $this->filters['from_id']);
             })
-            ->when($this->filters['to_id'],function(Builder $q){
-                $q->where('to_id',$this->filters['to_id']);
+            ->when($this->filters['to_id'], function (Builder $q) {
+                $q->whereIn('to_id', $this->filters['to_id']);
             })
-            ->when($this->filters['status'],function(Builder $q){
-                $q->where('is_completed',$this->filters['status'] == 'completed');
+            ->when($this->filters['status'], function (Builder $q) {
+                $q->where('is_completed', $this->filters['status'] == 'completed');
             })
             ->paginate(10);
     }

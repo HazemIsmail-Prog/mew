@@ -37,12 +37,7 @@
         {{-- Creator --}}
         <div class="w-full">
             <x-input-label for="creator" value="{{ __('messages.creator') }}" />
-            <x-select wire:model.live="filters.created_by" id="creator">
-                <option value="">---</option>
-                @foreach ($this->creators as $creator)
-                    <option value="{{ $creator->id }}">{{ $creator->name }}</option>
-                @endforeach
-            </x-select>
+            <x-searchable-select id="creator" :list="$this->creators" multipule wire:model.live="filters.created_by" />
         </div>
 
 
@@ -50,34 +45,19 @@
         {{-- Contract --}}
         <div class="w-full">
             <x-input-label for="contract" value="{{ __('messages.contract') }}" />
-            <x-select wire:model.live="filters.contract_id" id="contract">
-                <option value="">---</option>
-                @foreach ($this->contracts as $contract)
-                    <option value="{{ $contract->id }}">{{ $contract->name }}</option>
-                @endforeach
-            </x-select>
+            <x-searchable-select id="contract" :list="$this->contracts" multipule wire:model.live="filters.contract_id" />
         </div>
 
         {{-- From --}}
         <div class="w-full">
             <x-input-label for="from" value="{{ __('messages.from') }}" />
-            <x-select wire:model.live="filters.from_id" id="from">
-                <option value="">---</option>
-                @foreach ($this->stakeholders as $stakeholder)
-                    <option value="{{ $stakeholder->id }}">{{ $stakeholder->name }}</option>
-                @endforeach
-            </x-select>
+            <x-searchable-select id="from" :list="$this->stakeholders" multipule wire:model.live="filters.from_id" />
         </div>
 
         {{-- To --}}
         <div class="w-full">
             <x-input-label for="to" value="{{ __('messages.to') }}" />
-            <x-select wire:model.live="filters.to_id" id="to">
-                <option value="">---</option>
-                @foreach ($this->stakeholders as $stakeholder)
-                    <option value="{{ $stakeholder->id }}">{{ $stakeholder->name }}</option>
-                @endforeach
-            </x-select>
+            <x-searchable-select id="to" :list="$this->stakeholders" multipule wire:model.live="filters.to_id" />
         </div>
 
         {{-- Status --}}

@@ -7,8 +7,7 @@
     {{-- Steps --}}
     <div class=" text-xs divide-y dark:divide-gray-700">
         @foreach ($this->steps as $step)
-            <div wire:key="{{ rand() }}" x-data
-                class="flex items-center gap-5 py-2">
+            <div wire:key="{{ rand() }}" x-data class="flex items-center gap-5 py-2">
                 <div>{{ $loop->iteration }}</div>
                 <div @class([
                     'flex-1',
@@ -20,8 +19,7 @@
                 </div>
                 {{-- Is Completed --}}
                 <label class="inline-flex items-center cursor-pointer">
-                    <input id="is_completed-{{ $step->id }}" @checked($step->is_completed)
-                     {{-- x-model="is_completed_{{ $loop->index }}" --}}
+                    <input id="is_completed-{{ $step->id }}" @checked($step->is_completed) {{-- x-model="is_completed_{{ $loop->index }}" --}}
                         @change="$wire.setCompleted($event.target.checked, {{ $step }})" type="checkbox"
                         class="sr-only peer">
                     <div
@@ -41,18 +39,14 @@
     <div class="flex items-center gap-1">
         {{-- Action User --}}
         <div class=" flex-1">
-            <x-select class="py-1" wire:model="user_id" id="to">
-                <option value="">-- {{ __('messages.to') }} --</option>
-                @foreach ($this->users as $user)
-                    <option value="{{ $user->id }}">{{ $user->name }}</option>
-                @endforeach
-            </x-select>
+            <x-searchable-select class="!py-1" id="to" :list="$this->users" wire:model="user_id" />
             <x-input-error :messages="$errors->get('user_id')" />
         </div>
 
         {{-- Action --}}
         <div class=" flex-1">
-            <x-text-input class="py-1" wire:model="action" id="action" placeholder="{{ __('messages.action') }}" />
+            <x-text-input class="py-1" wire:model="action" id="action"
+                placeholder="{{ __('messages.action') }}" />
             <x-input-error :messages="$errors->get('action')" />
         </div>
 

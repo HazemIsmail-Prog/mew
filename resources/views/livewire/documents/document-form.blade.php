@@ -53,12 +53,7 @@
                         @if ($form->type == 'outgoing')
                             <div>
                                 <x-input-label required for="creator" value="{{ __('messages.creator') }}" />
-                                <x-select wire:model="form.created_by" id="creator">
-                                    <option value="">---</option>
-                                    @foreach ($this->creators as $creator)
-                                        <option value="{{ $creator->id }}">{{ $creator->name }}</option>
-                                    @endforeach
-                                </x-select>
+                                <x-searchable-select id="creator" :list="$this->creators" wire:model="form.created_by" />
                                 <x-input-error :messages="$errors->get('form.created_by')" />
                             </div>
                         @endif
@@ -66,36 +61,21 @@
                         {{-- From --}}
                         <div>
                             <x-input-label required for="from" value="{{ __('messages.from') }}" />
-                            <x-select wire:model="form.from_id" id="from">
-                                <option value="">---</option>
-                                @foreach ($this->stakeholders as $stakeholder)
-                                    <option value="{{ $stakeholder->id }}">{{ $stakeholder->name }}</option>
-                                @endforeach
-                            </x-select>
+                            <x-searchable-select id="from" :list="$this->stakeholders" wire:model="form.from_id" />
                             <x-input-error :messages="$errors->get('form.from_id')" />
                         </div>
 
                         {{-- To --}}
                         <div>
                             <x-input-label required for="to" value="{{ __('messages.to') }}" />
-                            <x-select wire:model="form.to_id" id="to">
-                                <option value="">---</option>
-                                @foreach ($this->stakeholders as $stakeholder)
-                                    <option value="{{ $stakeholder->id }}">{{ $stakeholder->name }}</option>
-                                @endforeach
-                            </x-select>
+                            <x-searchable-select id="to" :list="$this->stakeholders" wire:model="form.to_id" />
                             <x-input-error :messages="$errors->get('form.to_id')" />
                         </div>
 
                         {{-- Contract --}}
                         <div>
                             <x-input-label required for="contract" value="{{ __('messages.contract') }}" />
-                            <x-select wire:model="form.contract_id" id="contract">
-                                <option value="">---</option>
-                                @foreach ($this->contracts as $contract)
-                                    <option value="{{ $contract->id }}">{{ $contract->name }}</option>
-                                @endforeach
-                            </x-select>
+                            <x-searchable-select id="contract" :list="$this->contracts" wire:model="form.contract_id" />
                             <x-input-error :messages="$errors->get('form.contract_id')" />
                         </div>
 
@@ -140,7 +120,6 @@
                             <x-text-input wire:model="form.hyperlink" id="hyperlink" />
                             <x-input-error :messages="$errors->get('form.hyperlink')" />
                         </div>
-
 
                         <x-divider />
 
