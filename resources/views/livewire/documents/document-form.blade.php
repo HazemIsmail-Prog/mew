@@ -93,7 +93,7 @@
                             <x-select wire:model="form.contract_id" id="contract">
                                 <option value="">---</option>
                                 @foreach ($this->contracts as $contract)
-                                    <option value="{{ $contract->id }}">{{ $contract->name }}</option>
+                                    <option class="truncate" value="{{ $contract->id }}">{{ $contract->name }}</option>
                                 @endforeach
                             </x-select>
                             <x-input-error :messages="$errors->get('form.contract_id')" />
