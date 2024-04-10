@@ -25,6 +25,13 @@ class UserForm extends Component
         $this->showModal = true;
     }
 
+    public function updatedShowModal($val)
+    {
+        if ($val == false) {
+            $this->reset('user');
+        }
+    }
+
     public function save() {
         $this->form->updateOrCreate();
         $this->dispatch('usersUpdated');

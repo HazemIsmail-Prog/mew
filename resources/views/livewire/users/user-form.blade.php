@@ -7,7 +7,7 @@
                     {{ $modalTitle }}
                 </h2>
 
-                <hr class="my-3">
+                <x-divider />
 
                 @if ($showModal)
                     <form wire:submit="save" class="space-y-4">

@@ -17,6 +17,7 @@ class ContractIndex extends Component
     public function contracts()
     {
         return Contract::query()
+        ->with('parent')
             ->paginate(10);
     }
 

@@ -16,12 +16,6 @@ class StakeholderForm extends Component
     public string $modalTitle;
     public FormsStakeholderForm $form;
 
-    #[Computed()]
-    public function stakeholders()
-    {
-        return Stakeholder::query()->select('id', 'name')->get();
-    }
-
     #[On('showStakeholderForm')]
     public function show(Stakeholder $stakeholder)
     {
@@ -31,6 +25,14 @@ class StakeholderForm extends Component
         $this->form->fill($this->stakeholder);
         $this->modalTitle = $stakeholder->id ? __('messages.edit_stakeholder') : __('messages.add_stakeholder');
         $this->showModal = true;
+    }
+
+
+    public function updatedShowModal($val)
+    {
+        if ($val == false) {
+            $this->reset('stakeholder');
+        }
     }
 
     public function save()

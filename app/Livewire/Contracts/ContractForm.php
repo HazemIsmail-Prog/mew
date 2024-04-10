@@ -19,7 +19,17 @@ class ContractForm extends Component
     #[Computed()]
     public function contracts()
     {
-        return Contract::query()->select('id', 'name')->get();
+        return Contract::query()
+        ->whereDoesntHave('parent')
+        ->select('id', 'name')
+        ->get();
+    }
+
+    public function updatedShowModal($val)
+    {
+        if ($val == false) {
+            $this->reset('contract');
+        }
     }
 
     #[On('showContractForm')]
