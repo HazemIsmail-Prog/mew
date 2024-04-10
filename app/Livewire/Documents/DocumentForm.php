@@ -28,7 +28,11 @@ class DocumentForm extends Component
     #[Computed()]
     public function contracts()
     {
-        return Contract::query()->select('id', 'name')->orderBy('name')->get();
+        return Contract::query()
+            ->whereDoesntHave('childs')
+            ->select('id', 'name')
+            ->orderBy('name')
+            ->get();
     }
 
     #[Computed()]
@@ -37,8 +41,9 @@ class DocumentForm extends Component
         return User::query()->select('id', 'name')->orderBy('name')->get();
     }
 
-    public function updatedShowModal($val) {
-        if($val == false){
+    public function updatedShowModal($val)
+    {
+        if ($val == false) {
             $this->reset('document');
         }
     }
