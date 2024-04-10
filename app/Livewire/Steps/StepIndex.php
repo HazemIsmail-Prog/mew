@@ -36,7 +36,10 @@ class StepIndex extends Component
     #[Computed()]
     public function users()
     {
-        return User::all();
+        return User::query()
+            ->select('id', 'name')
+            ->orderBy('name')
+            ->get();
     }
 
     public function delete(Step $step)

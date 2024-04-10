@@ -56,5 +56,6 @@ return [
     'latest_step' => 'اخر اجراء',
     'profile_information' => 'المعلومات الشخصية',
     'search' => 'بحث',
+    'count' => 'العدد',
 
 ];
