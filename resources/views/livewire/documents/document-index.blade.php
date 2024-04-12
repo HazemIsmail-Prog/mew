@@ -18,7 +18,7 @@
     @endteleport
 
     {{-- Filters --}}
-    <div class="grid grid-cols-1 md:grid-cols-7 items-end gap-3 border dark:border-gray-700 rounded-lg p-3 mb-3">
+    <div class="grid grid-cols-1 md:grid-cols-7 items-center gap-3 border dark:border-gray-700 rounded-lg p-3 mb-3">
         {{-- Text --}}
         <div class="w-full">
             <x-input-label for="search" value="{{ __('messages.search') }}" />

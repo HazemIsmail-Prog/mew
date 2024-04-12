@@ -1,12 +1,21 @@
 @props([
     'title' => '---',
     'multipule' => false,
+    'invalid' => false,
+    'disabled' => false,
+    'canClear' => true,
     'list',
     'unique_id' => rand(),
 ])
 
 <div
-    wire:ignore
+
+    @if ($multipule)
+        wire:ignore
+    @else
+        wire:key="{{ $unique_id }}"
+    @endif
+
     x-data="{
         isOpen: false,
         search: null,
@@ -78,29 +87,31 @@
                 this.focusPreviousOption();
             } else if (event.key === 'Enter') {
                 this.selectFocusedOption();
+            } else if (event.key === 'Escape') {
+                this.isOpen = false;
             }
         },
 
         focusNextOption: function() {
-            let focusedIndex = this.options.findIndex(option => option.id === this.focusedOptionId) + 1;
-            if (focusedIndex === this.options.length) {
+            let focusedIndex = this.filteredOptions().findIndex(option => option.id === this.focusedOptionId) + 1;
+            if (focusedIndex === this.filteredOptions().length) {
                 focusedIndex = 0;
             }
-            this.focusedOptionId = this.options[focusedIndex].id;
+            this.focusedOptionId = this.filteredOptions()[focusedIndex].id;
             this.scrollOptionIntoView();
         },
 
         focusPreviousOption: function() {
-            let focusedIndex = this.options.findIndex(option => option.id === this.focusedOptionId) - 1;
+            let focusedIndex = this.filteredOptions().findIndex(option => option.id === this.focusedOptionId) - 1;
             if (focusedIndex === -1) {
-                focusedIndex = this.options.length - 1;
+                focusedIndex = this.filteredOptions().length - 1;
             }
-            this.focusedOptionId = this.options[focusedIndex].id;
+            this.focusedOptionId = this.filteredOptions()[focusedIndex].id;
             this.scrollOptionIntoView();
         },
 
         selectFocusedOption: function() {
-            const focusedOption = this.options.find(option => option.id === this.focusedOptionId);
+            const focusedOption = this.filteredOptions().find(option => option.id === this.focusedOptionId);
             if (this.multipule) {
                 this.selectMultipleOptions(focusedOption);
             } else {
@@ -141,18 +152,20 @@
     "
 
     @resize.window="setWidth"
-    @keydown.window.prevent.arrow-up.window.prevent.arrow-down.window.prevent.enter="handleKeyDown"
+    @keydown.window.prevent.arrow-up.window.prevent.arrow-down.window.prevent.enter.window.prevent.escape="handleKeyDown"
 >
+    @php
+    $classes = $invalid
+                ? 'relative w-full border focus:ring-1 focus:outline-none px-3 py-2 text-center flex items-center justify-between border-red-500 dark:border-red-500 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm'
+                : 'relative w-full border focus:ring-1 focus:outline-none px-3 py-2 text-center flex items-center justify-between border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm';
+    @endphp
     <button
         x-ref="button"
         @click="handleButtonClick"
         @keydown.arrow-down.prevent="handleKeyDown"
         @keydown.arrow-up.prevent="handleKeyDown"
         @keydown.enter.prevent="handleKeyDown"
-        {{ $attributes->merge([
-            'class' => 'relative w-full border focus:ring-1 focus:outline-none px-3 py-2 text-center flex items-center justify-between 
-                        border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm'
-        ]) }}
+        {{ $attributes->merge(['disabled' => $disabled, 'class' => $classes ]) }}
         type="button"
     >
 
@@ -164,10 +177,24 @@
 
 
         <div class=" flex items-center gap-1">
-            <div x-cloak @click="clearSelection" x-show="clearButtonIsVisible">
-                <x-svgs.x-mark  />
-            </div>
-            <x-svgs.chevron-down />
+            @if (!$disabled && $canClear)
+
+                <div x-cloak @click="clearSelection" x-show="clearButtonIsVisible">
+                    
+                    {{-- x-mark icon --}}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-4 h-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+
+                </div>
+
+            @endif
+            
+            {{-- chevron-down icon --}}
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="m1 1 4 4 4-4" />
+            </svg>
+
         </div>
     </button>
 
@@ -186,7 +213,14 @@
             <label for="input-group-search" class="sr-only">Search</label>
             <div class="relative">
                 <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <x-svgs.search />
+
+                    {{-- search icon --}}
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    </svg>
+
                 </div>
                 <input x-ref="search" x-model="search" type="text"
                     class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-900 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -194,7 +228,7 @@
                     @keydown.arrow-down.prevent="handleKeyDown"
                     @keydown.arrow-up.prevent="handleKeyDown"
                     @keydown.enter.prevent="handleKeyDown"
-                    @keydown.escape.prevent="isOpen=false"
+                    @keydown.escape.prevent="handleKeyDown"
                 >
             </div>
 
@@ -225,7 +259,7 @@
                             >
                             <label
                                 :for="{{ @json_encode($unique_id) }} + option.id"
-                                class="w-full py-2 ms-2 font-medium truncate "
+                                class="w-full py-2 ms-2 font-medium !whitespace-normal "
                                 x-text="option.name"
                             ></label>
 
@@ -233,7 +267,7 @@
 
                             <label
                                 @click="selectSingleOption(option)"
-                                class="w-full py-2 ms-2 font-medium truncate "
+                                class="w-full py-2 ms-2 font-medium !whitespace-normal "
                                 x-text="option.name"
                             ></label>
 

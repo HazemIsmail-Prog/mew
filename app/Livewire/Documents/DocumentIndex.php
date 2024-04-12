@@ -78,10 +78,6 @@ class DocumentIndex extends Component
             ->when($this->filters['created_by'], function (Builder $q) {
                 $q->whereIn('created_by', $this->filters['created_by']);
             })
-            // ->when($this->filters['contract_id'],function(Builder $q){
-            //     $q->whereRelation('contract','id',$this->filters['contract_id']);
-            //     $q->orWhereRelation('contract.parent','id',$this->filters['contract_id']);
-            // })
             ->when($this->filters['contract_id'], function (Builder $q) {
                 $q->whereIn('contract_id', $this->filters['contract_id']);
                 $q->orWhereHas('contract.parent', function ($query) {
