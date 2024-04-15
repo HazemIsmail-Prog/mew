@@ -57,5 +57,6 @@ return [
     'profile_information' => 'المعلومات الشخصية',
     'search' => 'بحث',
     'count' => 'العدد',
+    'are_you_sure' => 'هل انت متأكد؟',
 
 ];
