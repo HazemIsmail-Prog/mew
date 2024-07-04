@@ -18,7 +18,7 @@
     @endteleport
 
     {{-- Filters --}}
-    <div class="grid grid-cols-1 md:grid-cols-7 items-center gap-3 border dark:border-gray-700 rounded-lg p-3 mb-3">
+    <div class="grid grid-cols-1 md:grid-cols-6 items-center gap-3 border dark:border-gray-700 rounded-lg p-3 mb-3">
         {{-- Text --}}
         <div class="w-full">
             <x-input-label for="search" value="{{ __('messages.search') }}" />
@@ -35,10 +35,10 @@
             </x-select>
         </div>
         {{-- Creator --}}
-        <div class="w-full">
+        {{-- <div class="w-full">
             <x-input-label for="creator" value="{{ __('messages.creator') }}" />
             <x-searchable-select id="creator" :list="$this->creators" multipule wire:model.live="filters.created_by" />
-        </div>
+        </div> --}}
 
 
 

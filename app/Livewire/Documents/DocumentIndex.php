@@ -19,18 +19,18 @@ class DocumentIndex extends Component
     public $filters = [
         'search' => '',
         'type' => '',
-        'created_by' => [],
+        // 'created_by' => [],
         'contract_id' => [],
         'from_id' => [],
         'to_id' => [],
         'status' => '',
     ];
 
-    #[Computed()]
-    public function creators()
-    {
-        return User::query()->select('id', 'name')->orderBy('name')->get();
-    }
+    // #[Computed()]
+    // public function creators()
+    // {
+    //     return User::query()->select('id', 'name')->orderBy('name')->get();
+    // }
 
     #[Computed()]
     public function contracts()
@@ -79,9 +79,9 @@ class DocumentIndex extends Component
             ->when($this->filters['type'], function (Builder $q) {
                 $q->where('type', $this->filters['type']);
             })
-            ->when($this->filters['created_by'], function (Builder $q) {
-                $q->whereIn('created_by', $this->filters['created_by']);
-            })
+            // ->when($this->filters['created_by'], function (Builder $q) {
+            //     $q->whereIn('created_by', $this->filters['created_by']);
+            // })
             ->when($this->filters['contract_id'], function (Builder $q) {
                 $q->whereIn('contract_id', $this->filters['contract_id']);
                 $q->orWhereHas('contract.parent', function ($query) {
