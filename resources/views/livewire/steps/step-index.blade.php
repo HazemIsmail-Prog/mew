@@ -14,7 +14,7 @@
                     'text-green-700 dark:text-green-400' => $step->is_completed,
                     'text-red-500 dark:text-red-400' => !$step->is_completed,
                 ])>
-                    <div>{{ $step->user->name }}</div>
+                    {{-- <div>{{ $step->user->name }}</div> --}}
                     <div>{{ $step->action }}</div>
                 </div>
                 {{-- Is Completed --}}
@@ -38,16 +38,22 @@
     {{-- Form --}}
     <div class="flex items-center gap-1">
         {{-- Action User --}}
-        <div class=" flex-1">
+        {{-- <div class=" flex-1">
             <x-searchable-select class="!py-1" id="to" :list="$this->users" wire:model="user_id" />
             <x-input-error :messages="$errors->get('user_id')" />
-        </div>
+        </div> --}}
 
         {{-- Action --}}
         <div class=" flex-1">
-            <x-text-input class="py-1" wire:model="action" id="action"
+            <x-text-input list='datalist' class="py-1" wire:model="action" id="action"
                 placeholder="{{ __('messages.action') }}" />
             <x-input-error :messages="$errors->get('action')" />
+                <datalist id="datalist">
+                    <option value="م. مصطفى للمراجعة">م. مصطفى للمراجعة</option>
+                    <option value="المراقب للاعتماد">المراقب للاعتماد</option>
+                    <option value="المراقب للتحويل">المراقب للتحويل</option>
+                    <option value="علي لاعتماد المدير">علي لاعتماد المدير</option>
+                </datalist>
         </div>
 
         <x-primary-button type="button" wire:click="save_step">{{ __('messages.save') }}</x-primary-button>

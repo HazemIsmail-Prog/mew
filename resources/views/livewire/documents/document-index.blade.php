@@ -75,7 +75,7 @@
         <x-thead>
             <tr>
                 <x-th>{{ __('messages.type') }}</x-th>
-                <x-th>{{ __('messages.creator') }}</x-th>
+                {{-- <x-th>{{ __('messages.creator') }}</x-th> --}}
                 <x-th>{{ __('messages.title') }}</x-th>
                 <x-th>{{ __('messages.contract') }}</x-th>
                 <x-th>{{ __('messages.from') }}</x-th>
@@ -89,7 +89,7 @@
             @foreach ($this->documents as $document)
                 <x-tr>
                     <x-td>{{ __('messages.' . $document->type) }}</x-td>
-                    <x-td>{{ $document->creator->name ?? '-' }}</x-td>
+                    {{-- <x-td>{{ $document->creator->name ?? '-' }}</x-td> --}}
                     <x-td>{{ $document->title }}</x-td>
                     <x-td>{{ $document->contract->name }}</x-td>
                     <x-td>{{ $document->fromStakeholder->name }}</x-td>
@@ -100,7 +100,7 @@
                                 'text-red-500 dark:text-red-400' => !$document->latestStep->is_completed,
                                 'text-green-700 dark:text-green-400' => $document->latestStep->is_completed,
                             ])>
-                                <div>{{ $document->latestStep->user->name }}</div>
+                                {{-- <div>{{ $document->latestStep->user->name }}</div> --}}
                                 <div>{{ $document->latestStep->action }}</div>
                             </div>
                         @else
@@ -119,7 +119,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                             </svg>
-                            <svg 
+                            <svg
                                 wire:confirm="{{ __('messages.are_you_sure') }}"
                                 wire:click="delete({{ $document }})" xmlns="http://www.w3.org/2000/svg"
                                 fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor"

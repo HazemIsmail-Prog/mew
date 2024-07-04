@@ -28,7 +28,7 @@ class DocumentForm extends Form
             'id' => 'nullable',
             'type' => 'required|string',
             'is_completed' => 'nullable',
-            'created_by' => 'required_if:type,outgoing',
+            // 'created_by' => 'required_if:type,outgoing',
             'contract_id' => 'required',
             'from_id' => 'required',
             'to_id' => 'required',
@@ -45,10 +45,10 @@ class DocumentForm extends Form
     {
         $this->validate();
 
-        if ($this->type == 'incoming') {
-            $this->created_by = null;
-        }
-        
+        // if ($this->type == 'incoming') {
+        $this->created_by = auth()->id();
+        // }
+
         Document::updateOrCreate(['id' => $this->id], $this->all());
         $this->reset();
     }

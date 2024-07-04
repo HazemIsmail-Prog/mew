@@ -19,7 +19,7 @@ class StepIndex extends Component
         'stepsUpdated' => '$refresh',
     ];
 
-    #[Rule('required')]
+    // #[Rule('required')]
     public $user_id;
     #[Rule('required')]
     public $action;
@@ -33,14 +33,14 @@ class StepIndex extends Component
             ->get();
     }
 
-    #[Computed()]
-    public function users()
-    {
-        return User::query()
-            ->select('id', 'name')
-            ->orderBy('name')
-            ->get();
-    }
+    // #[Computed()]
+    // public function users()
+    // {
+    //     return User::query()
+    //         ->select('id', 'name')
+    //         ->orderBy('name')
+    //         ->get();
+    // }
 
     public function delete(Step $step)
     {
@@ -60,7 +60,7 @@ class StepIndex extends Component
         $this->validate();
         $data = [
             'document_id' => $this->document->id,
-            'user_id' => $this->user_id,
+            'user_id' => auth()->id(),
             'action' => $this->action,
             'is_completed' => false,
         ];

@@ -61,16 +61,20 @@ class DocumentIndex extends Component
             ->with('toStakeholder')
             ->with('latestStep.user')
             ->when($this->filters['search'], function (Builder $q) {
-                $q->whereAny(
-                    [
-                        'title',
-                        'content',
-                        'notes',
-                        'ref'
-                    ],
-                    'LIKE',
-                    "%" . $this->filters['search'] . "%"
-                );
+                $q->where(function (Builder $q) {
+                    $q->whereAny(
+                        [
+                            'title',
+                            'content',
+                            'notes',
+                            'ref'
+                        ],
+                        'LIKE',
+                        "%" . $this->filters['search'] . "%"
+                    );
+
+                    $q->orWhereRelation('steps', 'action', 'like', "%" . $this->filters['search'] . "%");
+                });
             })
             ->when($this->filters['type'], function (Builder $q) {
                 $q->where('type', $this->filters['type']);

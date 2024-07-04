@@ -50,13 +50,13 @@
                         </div>
 
                         {{-- Creator --}}
-                        @if ($form->type == 'outgoing')
+                        {{-- @if ($form->type == 'outgoing')
                             <div>
                                 <x-input-label required for="creator" value="{{ __('messages.creator') }}" />
                                 <x-searchable-select id="creator" :list="$this->creators" wire:model="form.created_by" />
                                 <x-input-error :messages="$errors->get('form.created_by')" />
                             </div>
-                        @endif
+                        @endif --}}
 
                         {{-- From --}}
                         <div>
