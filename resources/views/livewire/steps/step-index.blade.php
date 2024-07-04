@@ -49,7 +49,7 @@
                 placeholder="{{ __('messages.action') }}" />
             <x-input-error :messages="$errors->get('action')" />
                 <datalist id="datalist">
-                    <option value="تم الاستلام من ">تم الاستلام من </option>
+                    <option value="تم الاستلام من ">تم الاستلام من</option>
                     <option value="م. مصطفى للمراجعة">م. مصطفى للمراجعة</option>
                     <option value="المراقب للاعتماد">المراقب للاعتماد</option>
                     <option value="المراقب للتحويل">المراقب للتحويل</option>
