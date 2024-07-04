@@ -45,7 +45,7 @@
 
         {{-- Action --}}
         <div class=" flex-1">
-            <x-text-input list='datalist' class="py-1" wire:model="action" id="action"
+            <x-text-input x-data @keydown.enter="$wire.save_step" list='datalist' class="py-1" wire:model="action" id="action"
                 placeholder="{{ __('messages.action') }}" />
             <x-input-error :messages="$errors->get('action')" />
                 <datalist id="datalist">
