@@ -101,18 +101,18 @@
                         </div>
 
                         {{-- ref --}}
-                        <div>
+                        {{-- <div>
                             <x-input-label for="ref" value="{{ __('messages.ref') }}" />
                             <x-text-input wire:model="form.ref" id="ref" />
                             <x-input-error :messages="$errors->get('form.ref')" />
-                        </div>
+                        </div> --}}
 
                         {{-- date --}}
-                        <div>
+                        {{-- <div>
                             <x-input-label for="date" value="{{ __('messages.date') }}" />
                             <x-text-input wire:model="form.date" id="date" type="date" />
                             <x-input-error :messages="$errors->get('form.date')" />
-                        </div>
+                        </div> --}}
 
                         {{-- hyperlink --}}
                         <div>
