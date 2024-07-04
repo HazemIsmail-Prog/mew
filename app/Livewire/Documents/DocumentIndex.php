@@ -55,7 +55,7 @@ class DocumentIndex extends Component
     public function documents()
     {
         return Document::query()
-            ->with('creator')
+            // ->with('creator')
             ->with('contract')
             ->with('fromStakeholder')
             ->with('toStakeholder')
@@ -97,6 +97,7 @@ class DocumentIndex extends Component
             ->when($this->filters['status'], function (Builder $q) {
                 $q->where('is_completed', $this->filters['status'] == 'completed');
             })
+            ->orderBy('is_completed')
             ->paginate(10);
     }
 
