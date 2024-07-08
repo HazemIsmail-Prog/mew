@@ -128,7 +128,7 @@
                                 {{ __('messages.cancel') }}
                             </x-secondary-button>
 
-                            <x-primary-button type="button" class="ms-3">
+                            <x-primary-button type="submit" class="ms-3">
                                 {{ __('messages.save') }}
                             </x-primary-button>
                         </div>
