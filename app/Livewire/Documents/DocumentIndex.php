@@ -97,8 +97,8 @@ class DocumentIndex extends Component
             ->when($this->filters['status'], function (Builder $q) {
                 $q->where('is_completed', $this->filters['status'] == 'completed');
             })
-            ->orderBy('id', 'desc')
             ->orderBy('is_completed')
+            ->orderBy('id', 'desc')
             ->paginate(10);
     }
 
