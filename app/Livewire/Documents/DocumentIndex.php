@@ -99,7 +99,7 @@ class DocumentIndex extends Component
             })
             ->orderBy('is_completed')
             ->orderBy('id', 'desc')
-            ->paginate(10);
+            ->paginate(100);
     }
 
     public function delete(Document $document)
